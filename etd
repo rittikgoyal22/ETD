@@ -1,0 +1,105 @@
+create table Grades(
+Id int primary key Identity(1,1),
+[Name] varchar(25));
+ 
+ 
+create table Users(
+EmployeeId int primary key Identity(100000,1),
+FirstName varchar(15),
+LastName varchar(10),
+PhoneNumber varchar(10) unique,
+Constraint CHK_PhoneNumber CHECK (PhoneNumber not like '%[^0-9]%' and len(PhoneNumber)=10),
+EmailAddress varchar(50) unique,
+[Role] varchar(15) check ([Role] in ('Employee', 'HR', 'TravelDeskExe')),
+CurrentGradeId int,
+Foreign key (CurrentGradeId) references Grades(Id));
+ 
+ 
+create table GradeHistory(
+Id int primary key Identity(1,1),
+AssignedOn date,
+EmployeeId int,
+GradeId int,
+Foreign key (EmployeeId) references Users(EmployeeId),
+Foreign key (GradeId) references Grades(Id));
+
+*************************************************************************************
+
+create table Locations(
+Id int primary key Identity(1,1),
+[Name] varchar(20));
+ 
+ 
+create table TravelRequests(
+RequestId int primary key Identity(1,1),
+RaisedByEmployeeId int,
+ToBeApprovedByHRId int,
+RequestRaisedOn date default GETDATE(),
+FromDate date,
+ToDate date,
+constraint checkDateRange check (ToDate > FromDate),
+PurposeOfTravel varchar(100),
+LocationId int,
+RequestStatus varchar(15) check (RequestStatus in ('New', 'Approved', 'Rejected')),
+RequestApprovedOn date not null,
+[Priority] varchar(6),
+Foreign key (LocationId) references Locations(Id));
+ 
+create table TravelBudgetAllocations(
+Id int primary key Identity(1,1),
+TravelRequestId int,
+ApprovedBudget int,
+ApprovedModeOfTravel varchar(10) check (ApprovedModeOfTravel in ('Air', 'Train', 'Bus')),
+ApprovedHotelStarRating varchar(6) check (ApprovedHotelStarRating in ('3-Star', '5-Star', '7-Star'))
+Foreign key (TravelRequestId) references TravelRequests(RequestId));
+
+*****************************************************************************************
+
+
+create table ReservationTypes(
+TypeId int primary key Identity(1,1),
+TypeName varchar(25));
+ 
+ 
+create table Reservations(
+Id int primary key Identity(1,1),
+ReservationDoneByEmployeeId int,
+TravelRequestId int,
+ReservationTypeId int,
+CreatedOn date default GETDATE(),
+ReservationDoneWithEntity varchar(50),
+ReservationDate date,
+Amount int check (Amount>0),
+ConfirmationId varchar(10),
+Remarks varchar(100) not null,
+Foreign Key (ReservationTypeId) references ReservationTypes(TypeId));
+ 
+create table ReservationDocs(
+Id int primary key Identity(1,1),
+ReservationId int,
+DocumentURL varchar(100),
+Foreign key (ReservationId) references Reservations(Id));
+
+*****************************************************************************************
+
+
+create table ReimbursementTypes(
+Id int primary key Identity(1,1),
+[Type] varchar(25));
+ 
+ 
+create table ReimbursementRequests(
+Id int primary key Identity(1,1),
+TravelRequestId int,
+RequestRaiseByEmployeeId int,
+RequestDate date default GETDATE(),
+ReimbursementTypeId int,
+InvoiceNo varchar(20),
+InvoiceDate date check (InvoiceDate<getdate()),
+InvoiceAmount int,
+DocumentURL varchar(100),
+RequestProcessedOn date check (RequestProcessedOn>getdate()),
+RequestProcessedByEmployeeId int,
+[Status] varchar(10) check ([Status] in ('New', 'Approved', 'Rejected')),
+Remarks varchar(100),
+foreign key (ReimbursementTypeId) references ReimbursementTypes(Id));
