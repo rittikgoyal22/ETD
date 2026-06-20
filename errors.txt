@@ -1,0 +1,120 @@
+PS F:\ETD> docker compose up --build
+[+] Building 1142.2s (61/106)
+ => [internal] load local bake definitions                                                                         0.0s
+ => => reading from stdin 4.85kB                                                                                   0.0s
+ => [travel-planner-app internal] load build definition from Dockerfile                                            0.3s
+ => => transferring dockerfile: 457B                                                                               0.1s
+ => [travel-planner internal] load build definition from Dockerfile                                                0.4s
+ => => transferring dockerfile: 808B                                                                               0.1s
+ => [auth-service internal] load build definition from Dockerfile                                                  0.2s
+ => => transferring dockerfile: 808B                                                                               0.1s
+ => [reservation-management-app internal] load build definition from Dockerfile                                    0.3s
+ => => transferring dockerfile: 465B                                                                               0.1s
+ => [account-management internal] load build definition from Dockerfile                                            0.4s
+ => => transferring dockerfile: 808B                                                                               0.1s
+ => [reimbursement-management internal] load build definition from Dockerfile                                      0.3s
+ => => transferring dockerfile: 808B                                                                               0.1s
+ => [account-management-app internal] load build definition from Dockerfile                                        0.3s
+ => => transferring dockerfile: 461B                                                                               0.1s
+ => [reimbursement-management-app internal] load build definition from Dockerfile                                  0.3s
+ => => transferring dockerfile: 467B                                                                               0.1s
+ => [auth-app internal] load build definition from Dockerfile                                                      0.3s
+ => => transferring dockerfile: 447B                                                                               0.1s
+ => [reservation-management internal] load build definition from Dockerfile                                        0.4s
+ => => transferring dockerfile: 808B                                                                               0.1s
+ => [travel-planner-app] resolve image config for docker-image://docker.io/docker/dockerfile:1                     2.3s
+ => [auth] docker/dockerfile:pull token for registry-1.docker.io                                                   0.0s
+ => CACHED [reimbursement-management] docker-image://docker.io/docker/dockerfile:1@sha256:87999aa3d42bdc6bea60565  0.1s
+ => => resolve docker.io/docker/dockerfile:1@sha256:87999aa3d42bdc6bea60565083ee17e86d1f3339802f543c0d03998580f9c  0.0s
+ => [travel-planner-app internal] load metadata for docker.io/library/nginx:alpine                                 1.8s
+ => [reimbursement-management-app internal] load metadata for docker.io/library/node:20-alpine                     1.8s
+ => [reservation-management internal] load metadata for docker.io/library/eclipse-temurin:21-jre                   1.7s
+ => [travel-planner internal] load metadata for docker.io/library/gradle:8.10.2-jdk21                              1.8s
+ => [auth] library/eclipse-temurin:pull token for registry-1.docker.io                                             0.0s
+ => [auth] library/gradle:pull token for registry-1.docker.io                                                      0.0s
+ => [auth] library/node:pull token for registry-1.docker.io                                                        0.0s
+ => [auth] library/nginx:pull token for registry-1.docker.io                                                       0.0s
+ => [account-management-app internal] load .dockerignore                                                           0.2s
+ => => transferring context: 95B                                                                                   0.0s
+ => [reimbursement-management-app internal] load .dockerignore                                                     0.2s
+ => => transferring context: 95B                                                                                   0.0s
+ => [travel-planner-app internal] load .dockerignore                                                               0.3s
+ => => transferring context: 95B                                                                                   0.0s
+ => [auth-app internal] load .dockerignore                                                                         0.2s
+ => => transferring context: 95B                                                                                   0.0s
+ => [auth-service internal] load .dockerignore                                                                     0.3s
+ => => transferring context: 161B                                                                                  0.0s
+ => [reservation-management-app internal] load .dockerignore                                                       0.3s
+ => => transferring context: 95B                                                                                   0.0s
+ => [reimbursement-management internal] load .dockerignore                                                         0.3s
+ => => transferring context: 161B                                                                                  0.0s
+ => [travel-planner internal] load .dockerignore                                                                   0.2s
+ => => transferring context: 161B                                                                                  0.0s
+ => [account-management internal] load .dockerignore                                                               0.3s
+ => => transferring context: 161B                                                                                  0.0s
+ => [reservation-management internal] load .dockerignore                                                           0.2s
+ => => transferring context: 161B                                                                                  0.0s
+ => [reservation-management-app build 1/6] FROM docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362  0.2s
+ => => resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609  0.2s
+ => [reservation-management-app stage-1 1/4] FROM docker.io/library/nginx:alpine@sha256:20316569d8f81a160065d7d2a  0.3s
+ => => resolve docker.io/library/nginx:alpine@sha256:20316569d8f81a160065d7d2a5eeffc7ca97d79022462ee255fd23fa103a  0.2s
+ => [account-management-app internal] load build context                                                           0.5s
+ => => transferring context: 3.45kB                                                                                0.1s
+ => [reimbursement-management-app internal] load build context                                                     0.6s
+ => => transferring context: 4.01kB                                                                                0.2s
+ => [auth-service stage-1 1/4] FROM docker.io/library/eclipse-temurin:21-jre@sha256:8ec353b20d3aab0758572236b81b9  0.3s
+ => => resolve docker.io/library/eclipse-temurin:21-jre@sha256:8ec353b20d3aab0758572236b81b967c7077c40c4d0819ce97  0.2s
+ => [auth-service build 1/6] FROM docker.io/library/gradle:8.10.2-jdk21@sha256:963d59f7f22767da4efbcf46b661361b61  0.2s
+ => => resolve docker.io/library/gradle:8.10.2-jdk21@sha256:963d59f7f22767da4efbcf46b661361b61af5fb88b0309da1071c  0.2s
+ => [travel-planner internal] load build context                                                                   0.4s
+ => => transferring context: 5.16kB                                                                                0.2s
+ => [travel-planner-app internal] load build context                                                               0.7s
+ => => transferring context: 4.70kB                                                                                0.3s
+ => CACHED [reservation-management-app stage-1 2/4] RUN rm -rf /usr/share/nginx/html/*                             0.0s
+ => CACHED [travel-planner stage-1 2/4] WORKDIR /app                                                               0.0s
+ => CACHED [travel-planner stage-1 3/4] RUN groupadd -r spring && useradd -r -g spring -u 1001 spring  && mkdir -  0.0s
+ => [reimbursement-management internal] load build context                                                         0.1s
+ => => transferring context: 5.09kB                                                                                0.1s
+ => [auth-app internal] load build context                                                                         0.4s
+ => => transferring context: 2.10kB                                                                                0.2s
+ => [reservation-management-app internal] load build context                                                       0.3s
+ => => transferring context: 4.03kB                                                                                0.2s
+ => [reservation-management internal] load build context                                                           0.4s
+ => => transferring context: 5.40kB                                                                                0.2s
+ => [account-management internal] load build context                                                               0.3s
+ => => transferring context: 4.99kB                                                                                0.2s
+ => [auth-service internal] load build context                                                                     0.4s
+ => => transferring context: 3.44kB                                                                                0.2s
+ => CACHED [auth-app build 2/6] WORKDIR /app                                                                       0.0s
+ => CACHED [account-management-app build 3/6] COPY package*.json ./                                                0.0s
+ => [account-management-app build 4/6] RUN npm ci                                                               1132.0s
+ => => # npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized securit
+ => => # y vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may b
+ => => # e purchased (at exorbitant rates) by contacting i@izs.me
+ => => # npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized securit
+ => => # y vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may b
+ => => # e purchased (at exorbitant rates) by contacting i@izs.me
+ => CACHED [account-management build 2/6] WORKDIR /workspace                                                       0.0s
+ => CACHED [reimbursement-management build 3/6] COPY build.gradle settings.gradle ./                               0.0s
+ => [reimbursement-management build 4/6] RUN gradle --no-daemon dependencies > /dev/null 2>&1 || true           1132.0s
+ => CACHED [reimbursement-management-app build 3/6] COPY package*.json ./                                          0.0s
+ => CACHED [travel-planner-app build 3/6] COPY package*.json ./                                                    0.0s
+ => CACHED [auth-service build 3/6] COPY build.gradle settings.gradle ./                                           0.0s
+ => [auth-service build 4/6] RUN gradle --no-daemon dependencies > /dev/null 2>&1 || true                       1131.6s
+ => [reimbursement-management-app build 4/6] RUN npm ci                                                         1131.7s
+ => CACHED [travel-planner build 3/6] COPY build.gradle settings.gradle ./                                         0.0s
+ => CACHED [reservation-management build 3/6] COPY build.gradle settings.gradle ./                                 0.0s
+ => CACHED [account-management build 3/6] COPY build.gradle settings.gradle ./                                     0.0s
+ => CACHED [reservation-management-app build 3/6] COPY package*.json ./                                            0.0s
+ => CACHED [auth-app build 3/6] COPY package*.json ./                                                              0.0s
+ => [travel-planner-app build 4/6] RUN npm ci                                                                   1131.6s
+ => [account-management build 4/6] RUN gradle --no-daemon dependencies > /dev/null 2>&1 || true                 1131.6s
+ => [travel-planner build 4/6] RUN gradle --no-daemon dependencies > /dev/null 2>&1 || true                     1131.6s
+ => [auth-app build 4/6] RUN npm ci                                                                             1131.7s
+ => [reservation-management build 4/6] RUN gradle --no-daemon dependencies > /dev/null 2>&1 || true             1131.7s
+ => [reservation-management-app build 4/6] RUN npm ci                                                           1131.6s
+target reimbursement-management-app: failed to receive status: rpc error: code = Unavailable desc = error reading from server: EOF
+
+
+
+View build details: docker-desktop://dashboard/build/default/default/7sgq17ynsapauh1886drmvjls
