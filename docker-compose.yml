@@ -1,0 +1,144 @@
+# Employee Travel Desk (ETD) — full stack in Docker.
+# MySQL + 5 Spring Boot services + 5 Angular apps.
+#
+#   docker compose up --build -d      # build everything and start
+#   docker compose down               # stop (keeps DB + uploads)
+#   docker compose down -v            # stop and wipe all volumes
+#
+# Per-service runtime config lives in each service's .env file (loaded via env_file).
+# MySQL password lives in db.env and MUST match SPRING_DATASOURCE_PASSWORD in the backend .env files.
+
+services:
+
+  # ───────────────────────── Database ─────────────────────────
+  mysql:
+    image: mysql:8.0
+    container_name: etd-mysql
+    env_file:
+      - ./db.env
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", 'mysqladmin ping -h localhost -uroot -p"$$MYSQL_ROOT_PASSWORD" --silent']
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    restart: unless-stopped
+
+  # ───────────────────────── Backend ──────────────────────────
+  account-management:
+    build: ./BE/account-management
+    container_name: etd-account-management
+    env_file:
+      - ./BE/account-management/.env
+    ports:
+      - "8081:8081"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+  auth-service:
+    build: ./BE/auth-service
+    container_name: etd-auth-service
+    env_file:
+      - ./BE/auth-service/.env
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      account-management:
+        condition: service_started
+    restart: unless-stopped
+
+  travel-planner:
+    build: ./BE/travel-planner
+    container_name: etd-travel-planner
+    env_file:
+      - ./BE/travel-planner/.env
+    ports:
+      - "8082:8082"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      account-management:
+        condition: service_started
+    restart: unless-stopped
+
+  reservation-management:
+    build: ./BE/reservation-management
+    container_name: etd-reservation-management
+    env_file:
+      - ./BE/reservation-management/.env
+    ports:
+      - "8083:8083"
+    volumes:
+      - reservation-uploads:/app/uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
+      account-management:
+        condition: service_started
+    restart: unless-stopped
+
+  reimbursement-management:
+    build: ./BE/reimbursement-management
+    container_name: etd-reimbursement-management
+    env_file:
+      - ./BE/reimbursement-management/.env
+    ports:
+      - "8084:8084"
+    volumes:
+      - reimbursement-uploads:/app/uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
+      account-management:
+        condition: service_started
+    restart: unless-stopped
+
+  # ───────────────────────── Frontend ─────────────────────────
+  # Angular apps are configured at BUILD time (no runtime env_file) — static files served by nginx.
+  auth-app:
+    build: ./FE/auth-app
+    container_name: etd-auth-app
+    ports:
+      - "4200:80"
+    restart: unless-stopped
+
+  account-management-app:
+    build: ./FE/account-management-app
+    container_name: etd-account-management-app
+    ports:
+      - "4201:80"
+    restart: unless-stopped
+
+  travel-planner-app:
+    build: ./FE/travel-planner-app
+    container_name: etd-travel-planner-app
+    ports:
+      - "4202:80"
+    restart: unless-stopped
+
+  reservation-management-app:
+    build: ./FE/reservation-management-app
+    container_name: etd-reservation-management-app
+    ports:
+      - "4203:80"
+    restart: unless-stopped
+
+  reimbursement-management-app:
+    build: ./FE/reimbursement-management-app
+    container_name: etd-reimbursement-management-app
+    ports:
+      - "4204:80"
+    restart: unless-stopped
+
+volumes:
+  mysql-data:
+  reservation-uploads:
+  reimbursement-uploads:
