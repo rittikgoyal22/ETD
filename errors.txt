@@ -1,1 +1,15 @@
-docker compose build --progress=plain travel-planner-app 2>&1 | Select-String -Pattern "error TS|ERROR|✘" -Context 2,2
+PS F:\ETD> docker compose build --progress=plain travel-planner-app 2>&1 | Select-String -Pattern "error TS|ERROR|✘" -Context 2,2
+
+  #18 26.68
+  #18 26.68
+> #18 26.68 Γ£ÿ [ERROR] src/app/components/home/home.component.css exceeded maximum budget. Budget 4.00 kB was not met by 32 bytes with a total of 4.03 kB.
+  #18 26.68
+  #18 26.68
+> #18 ERROR: process "/bin/sh -c npm run build" did not complete successfully: exit code: 1
+  ------
+   > [build 6/6] RUN npm run build:
+  26.68
+  26.68
+> 26.68 Γ£ÿ [ERROR] src/app/components/home/home.component.css exceeded maximum budget. Budget 4.00 kB was not met by 32 bytes with a total of 4.03 kB.
+  26.68
+  26.68
